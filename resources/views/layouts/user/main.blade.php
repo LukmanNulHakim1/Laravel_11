@@ -18,7 +18,7 @@
         @include('layouts.user.style')
     </head>
     <body>
-        @include('sweetalert:: alert')
+        @include('sweetalert::alert')
         @include('layouts.user.navbar')
         @yield('content')
         @include('layouts.user.footer')

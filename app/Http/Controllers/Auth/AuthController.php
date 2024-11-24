@@ -9,6 +9,40 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    public function register()
+    {
+        return view('register');
+    }
+
+    public function post_register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email:dns',
+            'password' => 'required|min:8|max:8',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Gagal!', 'Pastikan semua terisi dengan benar!');
+            return redirect()->back();
+        }
+        
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'point' =>10000,
+        ]);
+
+        if ($user) {
+            Alert::success('Berhasil!', 'Akun baru berhasil dibuat, silahkan melakukan login!');
+            return redirect('/');
+        } else {
+            Alert::error('Gagal!', 'Akun gagal dibuat, silahkan coba Lagi!');
+            return redirect()->back();
+        }
+    }
+
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
