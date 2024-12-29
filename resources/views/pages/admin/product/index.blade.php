@@ -12,8 +12,7 @@
                 <div class="breadcrumb-item">Produk</div>
             </div>
         </div>
-        <a href="#" class="btn btn-icon icon-left btn-primary">
-            <i class="fas fa-plus"></i> Produk </a>
+        <a href="{{ route('product.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Produk</a>
 
         <div class="card-body">
             <div class="table-responsive">
@@ -22,21 +21,22 @@
                         <th>#</th>
                         <th>Nama Produk</th>
                         <th>Harga Produk</th>
-                        <th>Stok</th>
+                        <th>Nama Distributor</th>
                         <th>Action</th>
                     </tr>
                     @php
                         $no = 0
                     @endphp
-                    @forelse ($products as $item)
+                    @forelse ($data as $item)
                         <tr>
+                            <td>{{ $no += 1 }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->price }} Points</td>
-                            <td>{{ $item->stock }}</td>
+                            <td>{{ $item->nama_distributor }}</td>
                             <td>
-                                <a href="#" class="badge badge-info">Detail</a>
-                                <a href="#" class="badge badge-warning">Edit</a>
-                                <a href="#" class="badge badge-danger">Hapus</a>
+                                <a href="{{ route('product.detail', $item->id) }}" class="badge badge-info">Detail</a>
+                                <a href="{{ route('product.edit', $item->id) }}" class="badge badge-warning">Edit</a>
+                                <a href="{{ route('product.delete', $item->id) }}" class="badge badge-danger" data-confirm-delete="true">Hapus</a>
                             </td>
                         </tr>
                     @empty

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 
+
 class AuthController extends Controller
 {
     public function register()
@@ -26,7 +27,7 @@ class AuthController extends Controller
             Alert::error('Gagal!', 'Pastikan semua terisi dengan benar!');
             return redirect()->back();
         }
-        
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -55,7 +56,7 @@ class AuthController extends Controller
             return redirect()->back();
         }
 
-   
+
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
             toast('Selamat datang admin!', 'success');
             return redirect()->route('admin.dashboard');
